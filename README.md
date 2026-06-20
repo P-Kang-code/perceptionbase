@@ -1,22 +1,40 @@
 Weighted point-cloud registration. Inspired by Nonnengiesser et al., this baseline treats the known object model and tactile contacts as two point clouds. It converts tactile samples into a weighted contact cloud, uses contact pressure or point magnitude as confidence, and aligns the object model to the observation through weighted ICP over several initial rotation hypotheses.
+
 Neural-field pose optimisation. Following the idea of NeuralFeels, this method learns an object-specific neural signed-distance field from the object point cloud. At test time, tactile contacts are treated as surface observations, and the object pose is optimised so that transformed contact points lie close to the learned surface.
+
 EKF-based tactile pose tracking. Inspired by Lin et al., this baseline maintains a persistent pose state and covariance. It uses proprioceptive changes for prediction, tactile contacts as measurements, and an object point-cloud surface model to update the pose through an extended Kalman filter.
+
 Hybrid slip-aware tracking. Based on Liu et al., this method rolls out object motion frame by frame. During stable contact, motion is estimated from contact-point displacement; during slip, a learned tactile branch predicts relative motion from pressure-map changes, glove-angle increments, and flow statistics.
+
 Contact-codebook retrieval. Inspired by Tac2Pose, this method converts tactile contacts into a compact contact descriptor and compares it with object-specific templates rendered from the known object geometry. The closest template provides the rotation hypothesis, while the contact centroid determines translation.
+
 Collision-aware tactile pose optimisation. Following Caddeo et al., this baseline first selects likely object-surface contact candidates by comparing observed and simulated tactile contact features. It then optimises pose with a contact-fitting objective and a collision-aware penalty that discourages physically inconsistent penetration.
+
 Tool force and torque regression. Inspired by Li and Thuruthel, this method uses tactile maps and low-force reference maps as input to a dual-branch CNN with attention modules. Separate models are trained to regress scalar force and torque outputs.
+
 Sliding-window tactile factor graph. Based on Kim et al., this baseline estimates contact wrench over a short temporal window. It combines tactile pressure, contact geometry, proprioceptive motion, and temporal smoothness factors, then solves the resulting least-squares problem to produce force and torque estimates.
+
 In addition to the tactile and robotic baselines, we also adapted two recent vision-based 6D pose estimation methods to our tactile-object setting.
 Point-cloud pose regression. Inspired by Omni6DPose, this method builds a fused point set from the object model and tactile contacts. A PointNet-style encoder extracts a global feature, which is decoded into rotation and translation.
 Geometry-aware feature aggregation. Following Lin et al., this method also uses a fused object-contact point set, but adds geometry-aware point features and attention-based aggregation. The attended and globally pooled features are combined to regress the final pose.
+
 References
+
 Nonnengießer, F., Kshirsagar, A., Belousov, B., & Peters, J. (2025). In-Hand Object Pose Estimation via Visual-Tactile Fusion. arXiv preprint arXiv:2506.10787.
+
 Suresh, S., Qi, H., Wu, T., Fan, T., Pineda, L., Lambeta, M., Malik, J., Kalakrishnan, M., Calandra, R., Kaess, M., et al. (2024). NeuralFeels with Neural Fields: Visuotactile Perception for In-Hand Manipulation. Science Robotics, 9(96), eadl0628.
+
 Lin, Q., Yan, C., Li, Q., Ling, Y., Zheng, Y., Lee, W., Wan, Z., Huang, B., & Liu, X. (2023). Tactile-Based Object Pose Estimation Employing Extended Kalman Filter. ICARM, 118-123.
+
 Liu, Y., Xu, X., Chen, W., Yuan, H., Wang, H., Xu, J., Chen, R., & Yi, L. (2023). Enhancing Generalizable 6D Pose Tracking of an In-Hand Object with Tactile Sensing. IEEE Robotics and Automation Letters, 9(2), 1106-1113.
+
 Bauza, M., Bronars, A., & Rodriguez, A. (2023). Tac2Pose: Tactile Object Pose Estimation from the First Touch. The International Journal of Robotics Research, 42(13), 1185-1209.
+
 Caddeo, G. M., Piga, N. A., Bottarel, F., & Natale, L. (2023). Collision-Aware In-Hand 6D Object Pose Estimation Using Multiple Vision-Based Tactile Sensors. arXiv preprint arXiv:2301.13667.
+
 Li, L., & Thuruthel, T. G. (2025). Grasp Independent Indirect Tool Force Estimation Using Vision-Based Tactile Sensors. IEEE Robotics and Automation Letters, 11(1), 73-80.
 Kim, S., Jha, D. K., Romeres, D., Patre, P., & Rodriguez, A. (2023). Simultaneous Tactile Estimation and Control of Extrinsic Contact. ICRA, 12563-12569.
+
 Zhang, J., Huang, W., Peng, B., Wu, M., Hu, F., Chen, Z., Zhao, B., & Dong, H. (2024). Omni6DPose: A Benchmark and Model for Universal 6D Object Pose Estimation and Tracking. ECCV, 199-216.
+
 Lin, X., Yang, W., Gao, Y., & Zhang, T. (2024). Instance-Adaptive and Geometric-Aware Keypoint Learning for Category-Level 6D Object Pose Estimation. CVPR, 21040-21049.
